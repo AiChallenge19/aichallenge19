@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# @Title    : AIchallenge19
+# @Time    : 19-05-23
+# @Author  : 빈공지능팀
+# @Site    : https://github.com/AiChallenge19/aichallenge19
+# @File    : demo.py
+# @IDE: PyCharm Community Edition
+
+import os
+import glog as log
+
+log.info("system path : {:s}".format(os.getcwd()))
+# from config import parsinginterface
+# from config.load_save_config import *
+
+def main():
+    # parsing = parsinginterface()
+    mode = {'TRAIN': 'TRAIN', 'VALIDATION': 'VALIDATION', 'TEST': 'TEST'}
+    # args = parsing.log_info(mode['TRAIN'])
+    # 0. Data and env setting preparation
+    base_dir = "/home/dylee/Archive/data/ai_challenge/track_01/t1_video"
+    clip_list = os.listdir(base_dir)
+    for clip in clip_list:
+        img_list = os.listdir(os.path.join(base_dir, clip))
+        for img in img_list:
+            fname, ext = os.path.splitext(img)
+            if ext == '.jpg':
+                print(os.path.join(base_dir,clip,img))
+
+    # base_dir =
+
+
+
+if __name__ == "__main__":
+    main()
