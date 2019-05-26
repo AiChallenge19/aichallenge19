@@ -1,0 +1,9 @@
+# no .jpg files
+*.jpg
+
+# no .pth files
+*.pth
+
+# ignore all files in the build/ directory
+tools/mmdetection
+

@@ -1,24 +1,8 @@
 {
     "IMAGE": {
         "CHANNEL": 3,
-        "HEIGHT": 512,
-        "WIDTH": 512
-    },
-    "PATH": {
-        "IMAGE": "img",
-        "TEMPORARY": ".temp",
-        "SEGMENTATION": "seg",
-        "PCD": "pcd",
-        "INPUT_ANNOTATION_NAME": "annotation_a",
-        "OUTPUT_ANNOTATION_NAME": "annotation_m"
-    },
-    "pix2pix_GAN": {
-        "img_channels" : 3,
-        "gt_channels" : 241,
-        "cls_channels" : 10,
-        "patch_number": 16,
-        "patch_height": 16,
-        "patch_width": 16
+        "HEIGHT": 1080,
+        "WIDTH": 1920
     },
     "NETWORK":
       {
@@ -31,18 +15,18 @@
           "CLASSES_NUMS": 16,
           "TF_ALLOW_GROWTH": true,
           "BATCH_SIZE": 2,
-          "GPU": "6",
-          "WEIGHT_PATH": "Models//lane_unet_seg_1/checkpoint_weights.h5",
-          "MODEL_PATH": "/mfc/user/1623600/MVPU1.0.road_information_extractor/AA_lane_API/Models/",
-          "NETWORK_NAME": "LCPIS_512_Tusimple",
-          "pascal_DIR" : "/mfc/data/compressed/PASCAL-VOC/download/2012/VOCdevkit/VOC2012/",
-          "BASE_DIR" : "/mfc/data/mobis/synthetic/10_Prescan/",
-          "t_BASE_DIR" : "/mfc/data/vra_scoring/GT/VRA_Scoring_DB_V0.2.0_20181228/",
-          "ssg_BASE_DIR" : "/mfc/data/mobis/synthetic/10_Prescan/",
-          "OUTPUT_PATH" : "/home/dy_lee/mfc/data/scoring/20180529_1416030000_0300/",
-          "PRETRAINED_NET" : "VGG19",
+          "GPU": " ",
+          "WEIGHT_PATH": " ",
+          "MODEL_PATH": " ",
+          "NETWORK_NAME": " ",
+          "pascal_DIR" : " ",
+          "BASE_DIR" : " ",
+          "t_BASE_DIR" : " ",
+          "ssg_BASE_DIR" : "",
+          "OUTPUT_PATH" : " ",
+          "PRETRAINED_NET" : " ",
           "BN_MODE" : false,
-          "OBJECT_MODE" : "ma_seg"
+          "OBJECT_MODE" : " "
         },
         "VALIDATION": {
           "DISPLAY_STEP": 20,
@@ -52,26 +36,24 @@
           "VAL_BATCH_SIZE" : 1,
           "CLASSES_NUMS" : 16,
           "BATCH_SIZE" : 1,
-          "WEIGHT_PATH" : "/home/dy_lee/MVPU1.0.road_information_extractor/lane_instance_networks/model/culane_lanenet/culane_lanenet_vgg_2018-08-28-13-49-19.ckpt-1000",
-          "BASE_DIR" : "/home/dy_lee/mfc/data/mobis/synthetic/10_Prescan",
+          "WEIGHT_PATH" : " ",
+          "BASE_DIR" : " ",
           "OUTPUT_PATH" : "/home/dy_lee/mfc/data/scoring/20180529_141603_0000_0300/"
         },
         "TEST": {
           "DISPLAY_STEP": 1,
           "GPU_MEMORY_FRACTION": 0.95,
           "TF_ALLOW_GROWTH": true,
-          "GPU" : "6",
+          "GPU" : " ",
           "VAL_BATCH_SIZE" : 1,
           "CLASSES_NUMS" : 16,
           "BATCH_SIZE" : 2,
-          "WEIGHT_PATH" : "model/culane_lanenet/culane_lanenet_vgg_2018-08-28-13-49-19.ckpt-1000",
-          "BASE_DIR" : "/mfc/user/1623600/scoring_lane_v2/1438_20190212_144701/",
-          "t_BASE_DIR" : "/mfc/data/vra_scoring/GT/VRA_Scoring_DB_V0.2.0_20181228/",
-          "OUTPUT_PATH" : "/home/dy_lee/mfc/data/scoring/20180529_141603_0000_0300/",
+          "WEIGHT_PATH" : " ",
+          "BASE_DIR" : "/Archive/data/ai_challenge/track_01/t1_video",
+          "OUTPUT_PATH" : "val_results/json/",
           "MODEL_PATH": "/mfc/user/1623600/MVPU1.0.road_information_extractor/AA_lane_API/Models/",
-          "t_MODEL_PATH": "/mfc/img_pcd_pre/archive/remote_rep/Dontcare/keras_multi_gpu/Models/Final_overfitting",
-          "OBJECT_MODE" : "lane",
-          "DISPLAY_MODE" : "false"
+          "OBJECT_MODE" : " ",
+          "DISPLAY_MODE" : " "
           }
       },
     "LABEL" :{
@@ -79,7 +61,7 @@
       {
         "PERSON": [10, 0, 0],
         "CAR": [30, 0, 0],
-        "": [81, 0, 0],
+        "": [81, 0, 0]
       }
     }
 }

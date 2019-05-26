@@ -8,27 +8,58 @@
 # @IDE: PyCharm Community Edition
 
 import os
-import glog as log
+import sys
+import argparse
 
-log.info("system path : {:s}".format(os.getcwd()))
-# from config import parsinginterface
-# from config.load_save_config import *
+from tools.mmdetection.mmdet.apis import init_detector, inference_detector, show_result
+from config import globalconfig
+from util.utility import change_mm2ai, save_object, save2json
+
+sys.path.append(os.path.abspath(__file__ + "/../../"))
+
+def parse_args(mode):
+    global_config = globalconfig.globalconfig()
+    parser = argparse.ArgumentParser(description='Ai challenge parser')
+    parser.add_argument('--config', help='test config file path',default='tools/mmdetection/configs/faster_rcnn_r50_fpn_1x.py')
+    parser.add_argument('--checkpoint', help='checkpoint file',default='checkpoints/faster_rcnn_r50_fpn_1x_20181010-3d1b3351.pth')
+    parser.add_argument('--height', type=int, default=global_config._get_config_image_h())
+    parser.add_argument('--width', type=int, default=global_config._get_config_image_w())
+    parser.add_argument('--channel', type=int, default=global_config._get_config_image_c())
+    parser.add_argument('--gpu', type=str, default=global_config._get_config_gpu(mode))
+    parser.add_argument('--batch', type=int, default=global_config._get_config_batch(mode))
+    parser.add_argument('--class_number', type=int, default=global_config._get_config_class_num(mode))
+    parser.add_argument('--base_dir', type=str, default=global_config._get_config_base_dir(mode))
+    parser.add_argument('--output_path', type=str, default=global_config._get_config_output_dir(mode))
+    args = parser.parse_args()
+    return args
 
 def main():
-    # parsing = parsinginterface()
-    mode = {'TRAIN': 'TRAIN', 'VALIDATION': 'VALIDATION', 'TEST': 'TEST'}
-    # args = parsing.log_info(mode['TRAIN'])
-    # 0. Data and env setting preparation
-    base_dir = "/home/dylee/Archive/data/ai_challenge/track_01/t1_video"
-    clip_list = os.listdir(base_dir)
-    for clip in clip_list:
-        img_list = os.listdir(os.path.join(base_dir, clip))
-        for img in img_list:
-            fname, ext = os.path.splitext(img)
-            if ext == '.jpg':
-                print(os.path.join(base_dir,clip,img))
+    mode = 'TEST'
+    args = parse_args(mode)
 
-    # base_dir =
+    base_dir = args.base_dir
+    # 0. Data and env setting preparation
+    clip_list = os.listdir(args.base_dir)
+    model = init_detector(args.config,args.checkpoint)
+
+    for i, clip in enumerate(clip_list):
+        # test.main(args,base_dir,clip)
+        img_list = os.listdir(os.path.join(base_dir, clip))
+        result_dict = dict()
+        result_dict['clipId'] = i
+        result_dict['img'] = []
+        for j, img in enumerate(img_list):
+            fname, ext = os.path.splitext(img)
+            img_dict = dict()
+            img_dict['id'] = j
+            if ext == '.jpg':
+                img = os.path.join(base_dir,clip,img)
+                result = inference_detector(model,img)
+                revised_result, revised_CLASSES = change_mm2ai(result,model.CLASSES)
+                img_dict['object'] = save_object(revised_result, revised_CLASSES)
+                show_result(img,revised_result,revised_CLASSES, out_file='val_results/result_{}_{}.jpg'.format(i,j))
+            result_dict['img'].append(img_dict)
+        save2json(result_dict,args.output_path,i)
 
 
 
